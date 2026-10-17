@@ -15,6 +15,13 @@ window.addEventListener('keydown', (e) => {
 
     if (e.key === '9') {
         console.log("Tecla 9 apertada! Posição:", mouseX, mouseY);
+        
+        // PROTEÇÃO: Verifica se a extensão ainda está conectada/válida
+        if (!chrome.runtime || !chrome.runtime.id) {
+            console.warn("⚠️ Contexto da extensão invalidado. Por favor, atualize esta página.");
+            return;
+        }
+
         // Avisa o sistema central para clicar nessas coordenadas
         chrome.runtime.sendMessage({ 
             acao: "alternar_clicker", 
